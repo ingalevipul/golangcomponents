@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/joho/godotenv"
 	"github.com/redis/go-redis/v9"
 
 	"tutproj/hashlib"
@@ -263,6 +264,10 @@ func JWTMiddleware(next http.HandlerFunc) http.HandlerFunc {
 }
 
 func main() {
+	err := godotenv.Load("/Users/vipulingale/Desktop/tutproj/.env")
+	if err != nil {
+		log.Fatal("Error loading .env file", err.Error())
+	}
 	secret := os.Getenv("JWT_SECRET")
 	if secret == "" {
 		log.Fatal("JWT_SECRET must be set")
